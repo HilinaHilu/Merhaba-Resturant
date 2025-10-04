@@ -1,0 +1,137 @@
+/* Global styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background: #f0f2f5;
+    color: #333;
+}
+
+/* Header */
+header {
+    background: linear-gradient(90deg, #0077b6, #00b4d8);
+    color: white;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+header h1 {
+    margin: 0;
+    font-weight: 600;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+    background: #0077b6;
+    color: white;
+    font-size: 14px;
+}
+
+/* Layout */
+main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Cards */
+.card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    flex: 1 1 450px;
+}
+
+.card h2 {
+    margin-top: 0;
+    color: #0077b6;
+}
+
+/* Inputs */
+.inputs {
+    margin-bottom: 10px;
+}
+
+input, select {
+    padding: 8px;
+    margin: 5px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+/* Buttons */
+.btn {
+    padding: 8px 12px;
+    margin: 5px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn.add {
+    background: #00b4d8;
+    color: white;
+}
+
+.btn.clear {
+    background: #adb5bd;
+    color: white;
+}
+
+.btn.close {
+    background: #38b000;
+    color: white;
+}
+
+.btn.edit {
+    background: #f9c74f;
+    color: black;
+}
+
+.btn.danger {
+    background: #d00000;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.85;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background: #f1f1f1;
+    font-weight: 600;
+}
+
+tbody tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+/* Totals */
+.total {
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 10px;
+}

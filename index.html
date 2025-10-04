@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Merhaba Resturant</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<header>
+    <h1>🍽️ Waiter Calculator</h1>
+</header>
+
+<main>
+    <div class="card">
+        <h2>New Order</h2>
+        <div class="inputs">
+            <input id="name" placeholder="Item name">
+            <input id="price" type="number" step="0.01" placeholder="Price">
+            <input id="qty" type="number" value="1" min="1">
+            <button class="btn add" onclick="addItem()">➕ Add Item</button>
+        </div>
+
+        <table>
+            <thead>
+            <tr><th>Item</th><th>Qty</th><th>Price</th><th>Total</th><th>Action</th></tr>
+            </thead>
+            <tbody id="orderList"></tbody>
+        </table>
+
+        <p class="total">Total Order: <span id="grand">0.00</span> DKK</p>
+        <div class="actions">
+            <button class="btn clear" onclick="clearItems()">🗑 Clear</button>
+            <button class="btn close" onclick="closeBill()">✅ Close Bill</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Daily Customers</h2>
+        <div class="inputs">
+            <select id="customerSelect"></select>
+            <button class="btn edit" onclick="editCustomer()">✏️ Edit Selected</button>
+        </div>
+
+        <table>
+            <thead>
+            <tr><th>#</th><th>Items</th><th>Total Paid</th></tr>
+            </thead>
+            <tbody id="customerList"></tbody>
+        </table>
+
+        <p class="total">Daily Total: <span id="dailyTotal">0.00</span> DKK</p>
+        <button class="btn danger" onclick="clearDaily()">❌ Clear Day</button>
+    </div>
+</main>
+
+<footer>
+    <p>Made with ❤️ for your restaurant</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
