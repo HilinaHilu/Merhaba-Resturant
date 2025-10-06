@@ -29,11 +29,11 @@ function render() {
     items.forEach(it => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-      <td>${it.name}</td>
-      <td>${it.qty}</td>
-      <td>${it.price.toFixed(2)}</td>
-      <td>${(it.qty * it.price).toFixed(2)}</td>
-      <td><button onclick="removeItem(${it.id})">❌</button></td>`;
+            <td>${it.name}</td>
+            <td>${it.qty}</td>
+            <td>${it.price.toFixed(2)}</td>
+            <td>${(it.qty * it.price).toFixed(2)}</td>
+            <td><button onclick="removeItem(${it.id})">❌</button></td>`;
         list.appendChild(tr);
         total += it.qty * it.price;
     });
@@ -47,6 +47,7 @@ function clearItems() {
     render();
 }
 
+// ✅ FULLY FIXED: Works for editing any customer (2, 3, etc.)
 function closeBill() {
     const total = render();
     if (total <= 0) {
@@ -54,16 +55,31 @@ function closeBill() {
         return;
     }
 
-    const summary = items.map(it => `${it.qty}x ${it.name}`).join(", ");
-
     if (editingIndex !== null) {
-        // Update existing customer
-        customers[editingIndex].summary = summary;
-        customers[editingIndex].total = total;
+        // Editing existing customer
+        const customer = customers[editingIndex];
+
+        // Merge new items into existing ones
+        customer.items.push(...items);
+
+        // Update summary and total
+        customer.total += total;
+        customer.summary = customer.items
+            .map(it => `${it.qty}x ${it.name}`)
+            .join(", ");
+
+        alert(`✅ Updated Customer ${customer.id}'s order.`);
         editingIndex = null;
     } else {
         // New customer
-        customers.push({ id: customers.length + 1, summary, total });
+        const summary = items.map(it => `${it.qty}x ${it.name}`).join(", ");
+        customers.push({
+            id: customers.length + 1,
+            items: [...items],
+            summary,
+            total
+        });
+        alert(`✅ New Customer ${customers.length} added.`);
     }
 
     renderCustomers();
@@ -74,12 +90,15 @@ function renderCustomers() {
     const list = document.getElementById('customerList');
     const select = document.getElementById('customerSelect');
     list.innerHTML = '';
-    select.innerHTML = '<option value="">-- Select --</option>';
+    select.innerHTML = '<option value="">-- Select Customer --</option>';
 
     let daily = 0;
     customers.forEach((c, i) => {
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${c.id}</td><td>${c.summary}</td><td>${c.total.toFixed(2)}</td>`;
+        tr.innerHTML = `
+            <td>${c.id}</td>
+            <td>${c.summary}</td>
+            <td>${c.total.toFixed(2)} DKK</td>`;
         list.appendChild(tr);
 
         const opt = document.createElement('option');
@@ -93,23 +112,23 @@ function renderCustomers() {
     document.getElementById('dailyTotal').textContent = daily.toFixed(2);
 }
 
+// ✅ Works for ANY customer (1, 2, 3...)
 function editCustomer() {
     const select = document.getElementById('customerSelect');
     const idx = parseInt(select.value);
-    if (isNaN(idx)) return;
+
+    if (isNaN(idx)) {
+        alert("Please select a customer to edit!");
+        return;
+    }
 
     editingIndex = idx;
     const c = customers[idx];
-
-    // load that customer’s order back into items
-    // ⚠ since we only stored summary text, we can’t fully reconstruct items
-    // Instead, treat it as “add new items to adjust total”
-    items = [];
-    render();
-    alert(`Now editing Customer ${c.id}. Add more items and Close Bill to update.`);
+    alert(`✏️ You are now editing Customer ${c.id}. Add more items and press Close Bill to update.`);
 }
 
 function clearDaily() {
+    if (!confirm("Are you sure you want to clear the entire day?")) return;
     customers = [];
     renderCustomers();
 }
